@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Les 3V — Artisan Boulanger Lyon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+
+<style>
+/* ══════════════════════════════════════════════
+   TOKENS
+   ══════════════════════════════════════════════ */
+:root {
+  --chocolat:   #3E2723;
+  --pain-brule: #5D4037;
+  --terracotta: #A1683A;
+  --dore:       #C8964C;
+  --creme:      #FDFBF7;
+  --beurre:     #F5E6CA;
+  --farine:     #F0EAE0;
+  --blanc:      #FFFFFF;
+  --noir:       #1A1007;
+
+  --titre:  'Playfair Display', Georgia, serif;
+  --texte:  'Lato', system-ui, sans-serif;
+  --script: 'Caveat', cursive;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-card: 0 2px 8px rgba(62,39,35,.06), 0 12px 40px rgba(62,39,35,.08);
+}
+
+/* ══════════════════════════════════════════════
+   RESET
+   ══════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--texte); background: var(--creme); color: var(--pain-brule); line-height: 1.7; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* Grain subtil */
+body::after {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* ══════════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 4%;
+  background: rgba(253, 251, 247, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(62,39,35,.08);
+  transition: padding .35s var(--ease), box-shadow .35s;
+}
+nav.compact {
+  padding: .75rem 4%;
+  box-shadow: 0 4px 24px rgba(62,39,35,.1);
+}
+
+/* Logo image */
+.logo { display: flex; align-items: center; }
+.logo-img {
+  height: 2.6rem;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  transition: opacity .25s;
+}
+.logo:hover .logo-img { opacity: .85; }
+
+/* Links */
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  font-size: .75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em;
+  color: var(--pain-brule);
+  position: relative; padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1.5px; background: var(--terracotta);
+  transition: width .3s var(--ease);
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--chocolat); }
+
+/* CTA */
+.nav-cta {
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .65rem 1.6rem;
+  background: var(--chocolat); color: var(--creme);
+  border-radius: 2px;
+  transition: background .25s, transform .2s;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--terracotta); transform: translateY(-1px); }
+
+/* ══════════════════════════════════════════════
+   HERO — SPLIT
+   ══════════════════════════════════════════════ */
+.hero {
+  display: grid; grid-template-columns: 44% 56%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Gauche */
+.hero-left {
+  background: var(--chocolat);
+  padding: 0 5% 6%;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative; overflow: hidden;
+}
+
+/* Filigrane */
+.hero-left::before {
+  content: '1935';
+  position: absolute; bottom: -4rem; left: -1.5rem;
+  font-family: var(--titre); font-size: 20rem; font-weight: 900;
+  color: rgba(255,255,255,.025); line-height: 1;
+  pointer-events: none; letter-spacing: -.04em; z-index: 0;
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+.eyebrow {
+  font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .22em;
+  color: var(--dore); margin-bottom: 1.4rem;
+  display: flex; align-items: center; gap: .8rem;
+  opacity: 0; animation: fadeUp .7s var(--ease) .2s forwards;
+}
+.eyebrow::before {
+  content: ''; display: block; width: 1.8rem; height: 1px; background: var(--dore);
+}
+
+.hero-titre {
+  font-family: var(--titre);
+  font-size: clamp(3.2rem, 5.5vw, 6rem);
+  font-weight: 900; line-height: .95;
+  color: var(--creme); letter-spacing: -.01em;
+  margin-bottom: .6rem;
+  opacity: 0; animation: fadeUp .8s var(--ease) .35s forwards;
+}
+
+.hero-script {
+  font-family: var(--script);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: var(--dore);
+  display: block; margin-bottom: 2rem;
+  transform: rotate(-2deg);
+  opacity: 0; animation: fadeUp .8s var(--ease) .55s forwards;
+}
+
+.hero-desc {
+  font-size: 1rem; font-weight: 300; line-height: 1.75;
+  color: rgba(255,255,255,.72); max-width: 400px;
+  margin-bottom: 2.5rem;
+  opacity: 0; animation: fadeUp .7s var(--ease) .7s forwards;
+}
+
+.hero-btns {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp .7s var(--ease) .85s forwards;
+}
+
+.btn-fill {
+  padding: .85rem 2.2rem;
+  background: var(--terracotta); color: var(--blanc);
+  font-size: .78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  border-radius: 2px;
+  transition: background .25s, transform .2s;
+}
+.btn-fill:hover { background: var(--dore); color: var(--noir); transform: translateY(-2px); }
+
+.btn-line {
+  padding: .85rem 2.2rem;
+  background: transparent; color: rgba(255,255,255,.75);
+  border: 1px solid rgba(255,255,255,.25);
+  font-size: .78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  border-radius: 2px;
+  transition: all .25s;
+}
+.btn-line:hover { border-color: var(--creme); color: var(--creme); background: rgba(255,255,255,.05); }
+
+/* Stats */
+.hero-stats {
+  display: flex; gap: 2.5rem;
+  margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+  opacity: 0; animation: fadeUp .7s var(--ease) 1s forwards;
+}
+.stat { display: flex; flex-direction: column; }
+.stat-val {
+  font-family: var(--titre); font-size: 1.9rem; font-weight: 700;
+  color: var(--dore); line-height: 1;
+}
+.stat-lbl {
+  font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em;
+  color: rgba(255,255,255,.35); margin-top: .2rem;
+}
+
+/* Droite — photo */
+.hero-right { position: relative; overflow: hidden; }
+.hero-img {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat;
+  transform: scale(1.06);
+  animation: zoomOut 1.8s var(--ease) .1s forwards;
+  filter: brightness(.85);
+}
+
+/* Bandeau fondation */
+.hero-fondation {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(26, 16, 7, 0.72);
+  backdrop-filter: blur(8px);
+  padding: 1.1rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeUp .7s var(--ease) 1.4s forwards;
+  border-top: 1px solid rgba(200,150,76,.2);
+}
+.hero-fondation .f-label {
+  font-size: .62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .2em;
+  color: rgba(253,251,247,.45);
+}
+.hero-fondation .f-val {
+  font-family: var(--titre); font-size: 1.3rem; font-weight: 900;
+  color: var(--creme); letter-spacing: .04em;
+}
+.hero-fondation .f-sep {
+  width: 1px; height: 2rem;
+  background: rgba(200,150,76,.3);
+}
+
+/* ══════════════════════════════════════════════
+   SECTION — HISTOIRE
+   ══════════════════════════════════════════════ */
+.section-histoire {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+}
+
+.histoire-photo { position: relative; overflow: hidden; }
+.histoire-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .9s var(--ease);
+}
+.histoire-photo:hover img { transform: scale(1.04); }
+
+/* Note */
+.histoire-note {
+  position: absolute; bottom: 3rem; right: -1.8rem;
+  background: var(--creme); padding: 1.3rem 1.6rem;
+  max-width: 195px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.13);
+  transform: rotate(2.5deg);
+  border-left: 3px solid var(--dore);
+  transition-delay: .3s;
+}
+.histoire-note p {
+  font-family: var(--script); font-size: 1.15rem;
+  color: var(--chocolat); line-height: 1.35;
+}
+
+/* Texte */
+.histoire-texte {
+  background: var(--beurre);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 7% 9%;
+}
+
+.section-tag {
+  font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .22em;
+  color: var(--terracotta);
+  display: flex; align-items: center; gap: .9rem;
+  margin-bottom: 1.6rem;
+}
+.section-tag::before { content: ''; width: 1.6rem; height: 1px; background: var(--terracotta); }
+
+.histoire-texte h2 {
+  font-family: var(--titre);
+  font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+  font-weight: 900; line-height: 1.05;
+  color: var(--chocolat); margin-bottom: 1.8rem;
+}
+.histoire-texte h2 em { font-style: italic; font-weight: 400; }
+
+.histoire-texte p {
+  font-size: .95rem; font-weight: 400; line-height: 1.85;
+  color: var(--pain-brule); margin-bottom: 1rem;
+}
+
+.signature {
+  font-family: var(--script); font-size: 2.2rem;
+  color: var(--terracotta); margin-top: 1.8rem; display: block;
+}
+
+/* Piliers */
+.piliers {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem; margin-top: 2.5rem; padding-top: 2rem;
+  border-top: 1px solid rgba(62,39,35,.12);
+}
+.pilier-icone { font-size: 1.3rem; margin-bottom: .4rem; }
+.pilier-titre {
+  font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--chocolat); margin-bottom: .3rem;
+}
+.pilier-desc { font-size: .8rem; color: var(--pain-brule); opacity: .75; line-height: 1.5; }
+
+/* ══════════════════════════════════════════════
+   SECTION — EXPERTISE
+   ══════════════════════════════════════════════ */
+.section-expertise {
+  background: var(--farine);
+  padding: 7rem 5%;
+}
+
+.section-header {
+  text-align: center; margin-bottom: 4.5rem;
+}
+.section-header .section-tag { justify-content: center; }
+.section-header .section-tag::before { display: none; }
+
+.section-header h2 {
+  font-family: var(--titre);
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight: 900; color: var(--chocolat); margin-top: .5rem;
+}
+.section-header h2 em {
+  font-family: var(--script); font-style: normal;
+  color: var(--terracotta); font-size: 1.1em;
+}
+
+/* Ornement */
+.ornement {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1rem; margin-top: 1rem;
+}
+.ornement::before, .ornement::after {
+  content: ''; width: 60px; height: 1px;
+}
+.ornement::before { background: linear-gradient(90deg, transparent, var(--terracotta)); }
+.ornement::after  { background: linear-gradient(90deg, var(--terracotta), transparent); }
+.ornement span { font-size: .9rem; color: var(--terracotta); }
+
+/* Grille */
+.expertise-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px; background: rgba(62,39,35,.1);
+  max-width: 1400px; margin: 0 auto;
+}
+
+.expertise-card {
+  background: var(--blanc);
+  padding: 3.5rem 2.8rem;
+  position: relative; overflow: hidden;
+  transition: background .3s;
+}
+.expertise-card:hover { background: #FFFBF6; }
+
+/* Barre top au hover */
+.expertise-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--terracotta), var(--dore));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .4s var(--ease);
+}
+.expertise-card:hover::before { transform: scaleX(1); }
+
+/* Numéro fantôme */
+.card-num {
+  font-family: var(--titre); font-size: 6rem; font-weight: 900;
+  color: rgba(62,39,35,.04);
+  position: absolute; top: 1rem; right: 1.5rem;
+  line-height: 1; pointer-events: none;
+  transition: color .3s;
+}
+.expertise-card:hover .card-num { color: rgba(62,39,35,.07); }
+
+.card-icon { font-size: 2rem; margin-bottom: 1.3rem; display: block; }
+
+.expertise-card h3 {
+  font-family: var(--titre); font-size: 1.55rem; font-weight: 700;
+  color: var(--chocolat); margin-bottom: .7rem;
+}
+
+.expertise-card > p {
+  font-size: .9rem; line-height: 1.75;
+  color: var(--pain-brule); margin-bottom: 1.8rem;
+}
+
+/* Liste produits */
+.card-liste {
+  list-style: none; padding-top: 1.5rem;
+  border-top: 1px solid rgba(62,39,35,.1);
+}
+.card-liste li {
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: #9B8577; padding: .4rem 0;
+  display: flex; align-items: center; gap: .65rem;
+  border-bottom: 1px solid rgba(62,39,35,.05);
+  transition: color .22s, transform .22s;
+}
+.card-liste li:hover { color: var(--terracotta); transform: translateX(5px); }
+.card-liste li::before {
+  content: '—'; color: var(--terracotta); font-size: .7rem; flex-shrink: 0;
+}
+
+/* Cascade d'apparition */
+.expertise-card:nth-child(1) { transition-delay: 0s; }
+.expertise-card:nth-child(2) { transition-delay: .12s; }
+.expertise-card:nth-child(3) { transition-delay: .24s; }
+
+/* ══════════════════════════════════════════════
+   SECTION — CARTE DU JOUR (onglets)
+   ══════════════════════════════════════════════ */
+.section-carte { background: var(--blanc); padding: 7rem 5%; }
+
+.carte-top {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  flex-wrap: wrap; gap: 2rem; margin-bottom: 3rem;
+}
+.carte-top h2 {
+  font-family: var(--titre); font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 900; color: var(--chocolat); line-height: 1.1;
+}
+.carte-top h2 em { font-style: italic; color: var(--terracotta); font-weight: 400; }
+
+.tabs { display: flex; gap: .5rem; }
+.tab-btn {
+  font-family: var(--texte);
+  font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  padding: .6rem 1.3rem; border-radius: 2px;
+  border: 1px solid rgba(62,39,35,.2);
+  color: var(--pain-brule); background: transparent;
+  cursor: pointer; transition: all .22s;
+}
+.tab-btn.active, .tab-btn:hover {
+  background: var(--chocolat); color: var(--creme);
+  border-color: var(--chocolat);
+}
+
+/* Panel */
+.tab-panel { display: none; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+.tab-panel.active { display: grid; }
+
+.produit-card {
+  background: var(--creme); border: 1px solid rgba(62,39,35,.07);
+  border-radius: 3px; padding: 1.8rem;
+  transition: transform .25s var(--ease), box-shadow .25s;
+}
+.produit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+
+.produit-badge {
+  font-size: .58rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em;
+  padding: .28rem .7rem; border-radius: 2px;
+  display: inline-block; margin-bottom: 1rem;
+}
+.b-sig { background: var(--beurre); color: var(--terracotta); }
+.b-sai { background: #EAF3E0; color: #4A7A2F; }
+.b-new { background: rgba(161,104,58,.1); color: var(--terracotta); }
+.b-reg { background: #FFF0F0; color: #A04040; }
+.b-cer { background: var(--farine); color: var(--pain-brule); }
+.b-cla { background: #FFF8EE; color: var(--terracotta); }
+
+.produit-titre {
+  font-family: var(--titre); font-size: 1.2rem; font-weight: 700;
+  color: var(--chocolat); margin-bottom: .5rem; line-height: 1.15;
+}
+.produit-desc {
+  font-size: .83rem; line-height: 1.65;
+  color: var(--pain-brule); opacity: .75;
+}
+.produit-lien {
+  display: block; margin-top: 1.2rem; padding-top: 1rem;
+  border-top: 1px solid rgba(62,39,35,.08);
+  font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--terracotta);
+  transition: color .2s, letter-spacing .2s;
+}
+.produit-lien:hover { color: var(--chocolat); letter-spacing: .15em; }
+
+/* ══════════════════════════════════════════════
+   SECTION — INFOS
+   ══════════════════════════════════════════════ */
+.section-infos {
+  background: var(--chocolat);
+  padding: 7rem 5%;
+  display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 4rem;
+  position: relative;
+}
+.section-infos::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,150,76,.4), transparent);
+}
+
+.info-col h3 {
+  font-family: var(--titre); font-size: .82rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .2em;
+  color: var(--dore); margin-bottom: 1.8rem;
+  display: flex; align-items: center; gap: .8rem;
+}
+.info-col h3::after { content: ''; flex: 1; height: 1px; background: rgba(200,150,76,.2); }
+
+/* Horaires */
+.horaire {
+  display: flex; justify-content: space-between;
+  padding: .7rem 0; border-bottom: 1px solid rgba(255,255,255,.06);
+  font-size: .9rem;
+}
+.horaire .j { color: rgba(253,251,247,.55); }
+.horaire .h { color: rgba(253,251,247,.9); font-weight: 700; letter-spacing: .02em; }
+
+.note-ferme {
+  font-size: .75rem; font-style: italic;
+  color: rgba(253,251,247,.3); margin-top: 1.2rem;
+}
+
+/* Contact */
+.contact-item {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.ci-icon { font-size: 1.05rem; flex-shrink: 0; margin-top: .1rem; }
+.ci-text { font-size: .88rem; color: rgba(253,251,247,.65); line-height: 1.55; }
+.ci-text strong { display: block; color: var(--creme); font-size: .95rem; margin-bottom: .1rem; }
+
+.tel-grand {
+  display: inline-block; margin-top: 1.6rem;
+  font-family: var(--titre); font-size: 2.4rem; font-weight: 700;
+  color: var(--creme); letter-spacing: .02em;
+  transition: color .25s;
+}
+.tel-grand:hover { color: var(--dore); }
+
+/* Commande */
+.commande-box {
+  background: rgba(200,150,76,.08);
+  border: 1px solid rgba(200,150,76,.2);
+  border-radius: 3px; padding: 2rem;
+}
+.commande-box p {
+  font-size: .87rem; color: rgba(253,251,247,.58);
+  line-height: 1.75; margin-bottom: 1.8rem;
+}
+.btn-commande {
+  display: block; width: 100%; text-align: center;
+  padding: .9rem; border-radius: 2px; margin-bottom: .7rem;
+  font-family: var(--texte); font-size: .73rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em;
+  transition: all .22s; border: none; cursor: pointer;
+}
+.btn-commande.fill { background: var(--dore); color: var(--noir); }
+.btn-commande.fill:hover { background: var(--terracotta); color: var(--blanc); }
+.btn-commande.ghost {
+  background: transparent; color: rgba(253,251,247,.5);
+  border: 1px solid rgba(200,150,76,.25);
+}
+.btn-commande.ghost:hover { border-color: var(--dore); color: var(--dore); }
+
+/* ══════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════ */
+footer {
+  background: var(--noir); padding: 2.5rem 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem;
+  border-top: 1px solid rgba(200,150,76,.12);
+}
+.footer-logo {
+  font-family: var(--titre); font-size: 1.3rem; font-weight: 900;
+  color: var(--creme); display: flex; align-items: baseline; gap: .1em;
+}
+.footer-logo em { font-style: italic; font-weight: 400; color: var(--dore); }
+.footer-copy { font-size: .75rem; color: rgba(253,251,247,.3); letter-spacing: .06em; }
+
+/* ══════════════════════════════════════════════
+   SCROLL REVEAL
+   ══════════════════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: .1s; }
+.d2 { transition-delay: .22s; }
+.d3 { transition-delay: .34s; }
+
+/* ══════════════════════════════════════════════
+   KEYFRAMES
+   ══════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes zoomOut {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .expertise-grid { grid-template-columns: 1fr 1fr; }
+  .tab-panel.active { grid-template-columns: 1fr 1fr; }
+  .section-infos { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 820px) {
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 7rem 6% 5rem; }
+  .hero-right { height: 52vw; }
+  .hero-badge { left: 1.5rem; bottom: -2rem; }
+  .section-histoire { grid-template-columns: 1fr; }
+  .histoire-photo { min-height: 55vw; }
+  .histoire-texte { padding: 5rem 6%; }
+  .piliers { grid-template-columns: 1fr 1fr; }
+  .expertise-grid { grid-template-columns: 1fr; }
+  .carte-top { flex-direction: column; align-items: flex-start; }
+  .tab-panel.active { grid-template-columns: 1fr; }
+  .section-infos { grid-template-columns: 1fr; gap: 3.5rem; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav id="nav">
+  <a href="#" class="logo"><img src="data:image/png;base64,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" alt="Les 3V — Boulanger Lyonnais" class="logo-img"/></a>
+  <ul class="nav-links">
+    <li><a href="#maison">La Maison</a></li>
+    <li><a href="#expertise">Savoir-Faire</a></li>
+    <li><a href="#carte">La Carte</a></li>
+    <li><a href="#infos">Infos Pratiques</a></li>
+  </ul>
+  <a href="tel:0478031868" class="nav-cta">04 78 03 18 68</a>
+</nav>
+
+
+<!-- ═══════════════════ HERO ══════════════════ -->
+<section class="hero">
+
+  <div class="hero-left">
+    <div class="hero-content">
+      <p class="eyebrow">Lyon — Depuis 1935</p>
+
+      <h1 class="hero-titre">LE TEMPS<br>DU PAIN</h1>
+
+      <span class="hero-script">Pur Levain</span>
+
+      <p class="hero-desc">
+        Trois générations de boulangers. Une fermentation lente pour des arômes uniques. Le goût des choses simples, faites avec excellence.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#expertise" class="btn-fill">Notre Offre</a>
+        <a href="#infos" class="btn-line">Horaires</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-val">1935</span><span class="stat-lbl">Fondation</span></div>
+        <div class="stat"><span class="stat-val">100%</span><span class="stat-lbl">Fait maison</span></div>
+        <div class="stat"><span class="stat-val">3</span><span class="stat-lbl">Générations</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img"></div>
+    <div class="hero-fondation">
+      <div>
+        <div class="f-label">Établi à</div>
+        <div class="f-val">Lyon</div>
+      </div>
+      <div class="f-sep"></div>
+      <div>
+        <div class="f-label">Fondé en</div>
+        <div class="f-val">1935</div>
+      </div>
+      <div class="f-sep"></div>
+      <div>
+        <div class="f-label">Savoir-faire</div>
+        <div class="f-val">3 générations</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════ HISTOIRE ══════════════════ -->
+<section class="section-histoire" id="maison">
+
+  <div class="histoire-photo reveal">
+    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=900&auto=format&fit=crop" alt="Mains de boulanger"/>
+    <div class="histoire-note">
+      <p>"Le secret, c'est la patience."</p>
+    </div>
+  </div>
+
+  <div class="histoire-texte reveal d1">
+    <p class="section-tag">Notre Maison</p>
+
+    <h2>Une histoire<br><em>de famille</em></h2>
+
+    <p>Ici, pas de machines compliquées, juste des mains qui façonnent. Les 3V, c'est avant tout l'histoire d'une passion transmise depuis trois générations au cœur de Lyon.</p>
+
+    <p>Nous croyons que le pain est vivant. C'est pourquoi nous laissons à nos pâtes le temps de fermenter longuement — jusqu'à 48h — pour développer des arômes que vous ne trouverez nulle part ailleurs.</p>
+
+    <span class="signature">La Famille V.</span>
+
+    <div class="piliers">
+      <div>
+        <div class="pilier-icone">🌾</div>
+        <div class="pilier-titre">Farine tracée</div>
+        <div class="pilier-desc">Moulins Label Rouge, approvisionnement contrôlé</div>
+      </div>
+      <div>
+        <div class="pilier-icone">🔥</div>
+        <div class="pilier-titre">Four à pierre</div>
+        <div class="pilier-desc">Cuisson chaque matin, fermentation 48h</div>
+      </div>
+      <div>
+        <div class="pilier-icone">☕</div>
+        <div class="pilier-titre">Sur place</div>
+        <div class="pilier-desc">Café de spécialité & dégustation sur place</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ══════════════ EXPERTISE ══════════════════ -->
+<section class="section-expertise reveal" id="expertise">
+
+  <div class="section-header">
+    <p class="section-tag">Ce que nous faisons</p>
+    <h2>Notre <em>triple</em> expertise</h2>
+    <div class="ornement"><span>✦</span></div>
+  </div>
+
+  <div class="expertise-grid">
+
+    <div class="expertise-card reveal d1">
+      <div class="card-num">01</div>
+      <span class="card-icon">🍞</span>
+      <h3>Boulangerie</h3>
+      <p>Pains de tradition, baguettes, pains spéciaux. La base de notre maison depuis 1935, avec des farines Label Rouge.</p>
+      <ul class="card-liste">
+        <li>Baguette Tradition</li>
+        <li>Pain de campagne</li>
+        <li>Pain aux céréales</li>
+        <li>Pain de seigle</li>
+        <li>Fougasse & focaccia</li>
+      </ul>
+    </div>
+
+    <div class="expertise-card reveal d2">
+      <div class="card-num">02</div>
+      <span class="card-icon">🥐</span>
+      <h3>Viennoiseries</h3>
+      <p>100% maison. Feuilletage pur beurre de Charentes-Poitou, façonnage artisanal, cuisson minute tout au long de la journée.</p>
+      <ul class="card-liste">
+        <li>Croissant pur beurre</li>
+        <li>Pain au chocolat</li>
+        <li>Brioche tressée</li>
+        <li>Chausson aux pommes</li>
+        <li>Kouign-amann</li>
+      </ul>
+    </div>
+
+    <div class="expertise-card reveal d3">
+      <div class="card-num">03</div>
+      <span class="card-icon">🍰</span>
+      <h3>Pâtisserie & Café</h3>
+      <p>Créations saisonnières, tartes, entremets de haute précision. Accompagnés d'un café ou d'un thé de spécialité.</p>
+      <ul class="card-liste">
+        <li>Tartes de saison</li>
+        <li>Éclairs & Paris-Brest</li>
+        <li>Entremets & bûches</li>
+        <li>Moelleux & fondants</li>
+        <li>Café de spécialité</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════ CARTE DU JOUR ════════════════ -->
+<section class="section-carte reveal" id="carte">
+
+  <div class="carte-top">
+    <div>
+      <p class="section-tag">Cuit ce matin</p>
+      <h2>Nos <em>créations</em> du jour</h2>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="boul">Boulangerie</button>
+      <button class="tab-btn" data-tab="vien">Viennoiseries</button>
+      <button class="tab-btn" data-tab="pati">Pâtisserie</button>
+    </div>
+  </div>
+
+  <!-- Boulangerie -->
+  <div class="tab-panel active" id="tab-boul">
+    <div class="produit-card">
+      <span class="produit-badge b-sig">Signature</span>
+      <h4 class="produit-titre">Baguette Tradition</h4>
+      <p class="produit-desc">Croûte dorée, mie alvéolée, saveur douce et légèrement acidulée. Notre baguette depuis 1935.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-sai">Saison</span>
+      <h4 class="produit-titre">Pain de Campagne</h4>
+      <p class="produit-desc">Farines locales et levain naturel. Une croûte épaisse, une mie serrée. Compagnon idéal du fromage.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-cer">Céréales</span>
+      <h4 class="produit-titre">Pain aux 7 Graines</h4>
+      <p class="produit-desc">Lin, tournesol, sésame, avoine, seigle et blé. Riche en fibres, tendre à cœur.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-sig">Signature</span>
+      <h4 class="produit-titre">Pain aux Noix</h4>
+      <p class="produit-desc">Noix de Grenoble entières, mie dense et parfumée. Un classique lyonnais pour les plateaux de fromages.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+  </div>
+
+  <!-- Viennoiseries -->
+  <div class="tab-panel" id="tab-vien">
+    <div class="produit-card">
+      <span class="produit-badge b-sig">Signature</span>
+      <h4 class="produit-titre">Croissant Pur Beurre</h4>
+      <p class="produit-desc">27 couches, beurre AOP Poitou-Charentes. Croustillant en surface, fondant à l'intérieur.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-cla">Classique</span>
+      <h4 class="produit-titre">Pain au Chocolat</h4>
+      <p class="produit-desc">Deux barres chocolat noir 66%, pâte feuilletée pur beurre. Cuit en continu pour toujours servir chaud.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-reg">Régional</span>
+      <h4 class="produit-titre">Brioche Praline</h4>
+      <p class="produit-desc">La spécialité lyonnaise par excellence. Pralines roses concassées, pâte briochée fondante.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-new">Nouveau</span>
+      <h4 class="produit-titre">Kouign-Amann</h4>
+      <p class="produit-desc">Recette bretonne authentique. Caramel croustillant, moelleux à cœur. Quantités limitées.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+  </div>
+
+  <!-- Pâtisserie -->
+  <div class="tab-panel" id="tab-pati">
+    <div class="produit-card">
+      <span class="produit-badge b-sai">Saison</span>
+      <h4 class="produit-titre">Tarte Citron Meringuée</h4>
+      <p class="produit-desc">Citrons de Menton, meringue italienne pochée à la minute. Acidulée et sucrée, parfaitement équilibrée.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-cla">Classique</span>
+      <h4 class="produit-titre">Paris-Brest</h4>
+      <p class="produit-desc">Pâte à choux croustillante, praliné noisette maison monté en crème légère.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-sig">Signature</span>
+      <h4 class="produit-titre">Flan Vanille</h4>
+      <p class="produit-desc">Vanille Bourbon Madagascar, lait entier, œufs fermiers. Ferme et onctueux. Best-seller depuis 20 ans.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+    <div class="produit-card">
+      <span class="produit-badge b-new">À commander</span>
+      <h4 class="produit-titre">Entremets Chocolat</h4>
+      <p class="produit-desc">Ganache Valrhona, biscuit sacher, miroir chocolat. À commander 48h à l'avance.</p>
+      <a href="tel:0478031868" class="produit-lien">Réserver →</a>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ══════════════════ INFOS ══════════════════ -->
+<section class="section-infos reveal" id="infos">
+
+  <!-- Horaires -->
+  <div class="info-col">
+    <h3>Horaires</h3>
+    <div class="horaire"><span class="j">Lundi</span><span class="h">06h30 — 19h30</span></div>
+    <div class="horaire"><span class="j">Mardi</span><span class="h">06h30 — 19h30</span></div>
+    <div class="horaire"><span class="j">Mercredi</span><span class="h">06h30 — 19h30</span></div>
+    <div class="horaire"><span class="j">Jeudi</span><span class="h">06h30 — 19h30</span></div>
+    <div class="horaire"><span class="j">Vendredi</span><span class="h">06h30 — 19h30</span></div>
+    <div class="horaire"><span class="j">Samedi</span><span class="h">07h00 — 19h00</span></div>
+    <div class="horaire"><span class="j">Dimanche</span><span class="h">07h00 — 14h00</span></div>
+    <p class="note-ferme">Fermé les jours fériés sauf indication contraire.</p>
+  </div>
+
+  <!-- Contact -->
+  <div class="info-col">
+    <h3>Nous trouver</h3>
+    <div class="contact-item">
+      <span class="ci-icon">📍</span>
+      <div class="ci-text"><strong>Lyon, Auvergne-Rhône-Alpes</strong>Boulangerie Les 3V</div>
+    </div>
+    <div class="contact-item">
+      <span class="ci-icon">✉️</span>
+      <div class="ci-text"><strong>contact@les3v.fr</strong>Réponse sous 24h</div>
+    </div>
+    <div class="contact-item">
+      <span class="ci-icon">📞</span>
+      <div class="ci-text">Besoin de réserver une commande ?</div>
+    </div>
+    <a href="tel:0478031868" class="tel-grand">04 78 03 18 68</a>
+  </div>
+
+  <!-- Commandes spéciales -->
+  <div class="info-col">
+    <h3>Commandes spéciales</h3>
+    <div class="commande-box">
+      <p>Vous préparez un événement, un repas de famille, un cocktail d'entreprise ? Nous élaborons des commandes sur mesure avec un délai minimum de 48h.</p>
+      <a href="tel:0478031868" class="btn-commande fill">Commander par téléphone</a>
+      <a href="mailto:contact@les3v.fr" class="btn-commande ghost">Envoyer un e-mail</a>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ══════════════════ FOOTER ═════════════════ -->
+<footer>
+  <div class="footer-logo">Les <em>3V</em></div>
+  <p class="footer-copy">© 2025 — Fait avec amour et farine à Lyon.</p>
+</footer>
+
+
+<!-- ═══════════════════ JS ════════════════════ -->
+<script>
+// Nav compact au scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('compact', window.scrollY > 50);
+}, { passive: true });
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// Onglets carte
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id === '#') return;
+    e.preventDefault();
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
